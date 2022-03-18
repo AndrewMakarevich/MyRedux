@@ -5,7 +5,6 @@ function combineReducers(reducersObject) {
     const reducer = reducersObject[reducerKey];
     initialState[reducerKey] = reducer();
   });
-  // console.log(initialState);
 
   return function (state = initialState, action = {}) {
     let stateCopy = JSON.parse(JSON.stringify(state));
@@ -15,7 +14,7 @@ function combineReducers(reducersObject) {
       const changedParam = reducer(state[reducerKey], action);
       stateCopy = { ...stateCopy, [reducerKey]: changedParam };
     });
-    // console.log(result);
+
     return stateCopy;
   };
 }

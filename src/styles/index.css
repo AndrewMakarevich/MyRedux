@@ -1,3 +1,7 @@
+body{
+  transition: background-color .3s, color .2s;
+}
+
 .dark-theme{
   background-color: rgb(22, 22, 22);
   color:aliceblue;

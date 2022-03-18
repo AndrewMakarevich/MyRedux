@@ -1,5 +1,6 @@
 /*jshint esversion: 9 */
 const INCREMENT = 'INCREMENT';
+const ASYNC_INCREMENT = 'ASYNC_INCREMENT';
 const DECREMENT = 'DECREMENT';
 const INITIALIZE = 'INITIALIZE';
 
@@ -7,6 +8,8 @@ const counterReducer = {
   counterReducer(state = 0, action = {}) {
     switch (action.type) {
       case INCREMENT:
+        return state + action.value;
+      case ASYNC_INCREMENT:
         return state + action.value;
       case DECREMENT:
         return state - action.value;
@@ -17,6 +20,13 @@ const counterReducer = {
   actions: {
     incrementStateValue(value) {
       return { type: INCREMENT, value };
+    },
+    asyncIncrementStateValue(value) {
+      return (dispatch) => {
+        setTimeout(() => {
+          dispatch({ type: ASYNC_INCREMENT, value });
+        }, 3000);
+      };
     },
     decrementStateValue(value) {
       return { type: DECREMENT, value };
@@ -34,9 +44,9 @@ const themeReducer = {
   themeReducer(state = 'light-theme', action = {}) {
     switch (action.type) {
       case DARK:
-        return 'light-theme';
-      case LIGHT:
         return 'dark-theme';
+      case LIGHT:
+        return 'light-theme';
       default:
         return state;
     }
